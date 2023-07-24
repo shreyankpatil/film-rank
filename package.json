@@ -1,0 +1,6 @@
+{
+    "name": "film-rank",
+    "devDependencies": {
+        "pyright": "1.1.308"
+    }
+}

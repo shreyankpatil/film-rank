@@ -1,0 +1,85 @@
+[project]
+name = "film-rank"
+description = "web app to rank films"
+version = "0.0.0"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "black~=23.1",
+    "build~=0.10",
+    "pre-commit~=3.0",
+    "pytest~=7.2",
+    "ruff~=0.0.270",
+    "twine~=4.0",
+]
+
+[build-system]
+requires = ["setuptools~=67.7", "wheel~=0.40"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tests*"]
+
+# use PyCharm default line length of 120
+[tool.black]
+line-length = 120
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+exclude = ["**/node_modules", "**/__pycache__", "**/.*", "build"]
+strictListInference = true
+strictDictionaryInference = true
+strictParameterNoneValue = true
+reportTypedDictNotRequiredAccess = false
+
+[tool.ruff]
+line-length = 120
+
+# rules to enable/ignore
+select = [
+    # pyflakes
+    "F",
+    # pycodestyle
+    "E",
+    "W",
+    # type annotations
+    "ANN",
+    # pep8-naming
+    "N",
+    # bugbear
+    "B",
+    # isort
+    "I",
+    # flake8-unused-arguments
+    "ARG",
+    # flake8-self
+    "SLF",
+    # ruff-specific
+    "RUF",
+]
+ignore = [
+    # allow untyped self and cls args, and no return type from dunder methods
+    "ANN101",
+    "ANN102",
+    "ANN204",
+    # allow == True because pandas dataframes overload equality
+    "E712",
+]
+# first-party imports for sorting
+src = ["."]
+fix = true
+show-fixes = true
+
+[tool.ruff.per-file-ignores]
+# imports in __init__.py don't need to be used in __init__.py
+"__init__.py" = ["F401"]
+# test functions don't need return types
+"tests/*" = ["ANN201", "ANN202"]
+
+[tool.ruff.flake8-annotations]
+# allow *args: Any, **kwargs: Any
+allow-star-arg-any = true
